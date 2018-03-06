@@ -53,4 +53,16 @@ This Web-Server will be written in:
 * Swift? (Linux Support isn't great)
 * Node.js? (Might be too slow)
 
+#### Optional:
+Write a web-ui for the Web-Server, allowing for the remote to be controlled without any clients installed on a device.
 
+### Clients
+Clients will be easy to write:
+
+* Python Script that does simple HTTP Requests
+* Alfred 3 Workflow to control the Python Script
+* iOS App that just sends HTTP Requests
+* Mac Menubar App that does simple HTTP Requests
+* Windows Menubar App that does simple HTTP Reqests
+
+Since HTTP Requests are dead simple in basically every language and these are one-way controls it should be easy to write clients in whatever we want.
