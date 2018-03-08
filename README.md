@@ -66,3 +66,23 @@ Clients will be easy to write:
 * Windows Menubar App that does simple HTTP Reqests
 
 Since HTTP Requests are dead simple in basically every language and these are one-way controls it should be easy to write clients in whatever we want.
+
+
+## Timeline
+### Step 1: Arduino IR Emitter
+If we can get this step done, then the biggest unknown of the project is over. Once we can get the IR Emitter to turn on/off a TV and/or control the volume/input of a TV, then we can start to control it.
+
+### Step 2: Raspberry Pi -> Arduino
+At this point, we can work on creating the link from the Arduino to the Raspberry Pi. If this works, then we can move all development to the more capable Raspberry Pi and leave the Arduino as a basic accessory to the Raspberry Pi
+
+### Step 3: Raspberry Pi Webserver
+Once the Pi can control the Arduino, we can then move onto setting up the REST Api for controlling the Remote.
+
+### Step 4: Clients
+However many of these we need to fulfill requirements.
+
+## Tutorials
+
+[Basic tutorial for using the IR Led / IR receiver](http://www.instructables.com/id/How-to-control-your-TV-with-an-Arduino/)
+
+[More in depth with Library Included](https://learn.adafruit.com/using-an-infrared-library/sending-ir-codes)
