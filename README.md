@@ -86,3 +86,26 @@ However many of these we need to fulfill requirements.
 [Basic tutorial for using the IR Led / IR receiver](http://www.instructables.com/id/How-to-control-your-TV-with-an-Arduino/)
 
 [More in depth with Library Included](https://learn.adafruit.com/using-an-infrared-library/sending-ir-codes)
+
+
+## Kotlin -> Raspberry Pi
+
+We have confirmed that we are using Kotlin, since Kotlin/Native looks interesting.
+
+Here are some of the tutorials we are going to be using to get this working: 
+
+[Kotlin with GPIO](https://willowtreeapps.com/ideas/raspberry-pi-gpio-with-kotlin-native)
+
+We are going to be using WiringPi to intern with the pins on the Raspberry Pi Side.
+
+[Wiring Pi](http://wiringpi.com)
+
+This will let us handle the [Serial Port](http://wiringpi.com/reference/serial-library/) with little/no problem. That was one of the biggest problems between the raspberry pi -> Arduino -> Kotlin communication.
+
+## Kotlin -> Serial -> Arduino
+
+The Arduino isn't powerful enough to run Kotlin. This restricts us from being able to run the same code on both devices. However, with the more complicated code running on the Raspberry Pi this isn't much of a problem, since we need a nicer program there than on the Arduino.
+
+## Kotlin -> HTTP Server
+
+We have an example of the HTTP Server in Kotlin/Native that we can use for the entire project.  d[here.](https://github.com/jetbrains/kotlinconf-spinner)
