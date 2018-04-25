@@ -48,7 +48,7 @@ public:
 	}
 
 private:
-	char buffer[500];
+	char buffer[50];
 	int size = 0;
 
 	bool printBack;

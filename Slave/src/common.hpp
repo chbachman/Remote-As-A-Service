@@ -2,32 +2,6 @@
 
 #ifndef COMMON_H
 #define COMMON_H
-
-int GREEN = LED_BUILTIN;
-int RED = 12;
-int BLUE = 11;
-int MODE_BUTTON = 2;
-
-void redLED(int value) { digitalWrite(RED, value); }
-
-void blueLED(int value) { digitalWrite(BLUE, value); }
-
-void greenLED(int value) { digitalWrite(GREEN, value); }
-
-void allLED(int value) {
-	digitalWrite(RED, value);
-	digitalWrite(BLUE, value);
-	digitalWrite(GREEN, value);
-}
-
-void displayNumber(int num) {
-	allLED(LOW);
-
-	greenLED((num >> 2 & 1) ? HIGH : LOW);
-	redLED((num >> 1 & 1) ? HIGH : LOW);
-	blueLED((num & 1) ? HIGH : LOW);
-}
-
 class Timer {
 public:
 	unsigned long time;

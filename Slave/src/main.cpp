@@ -1,33 +1,63 @@
-// Chandler Bachman - 669993737
 #include <Arduino.h>
-#include <LiquidCrystal.h>
-#include <lcd.hpp>
 #include <console.hpp>
+#include <ir.hpp>
+#include <MemoryFree.h>
 
-const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 10, d7 = 9;
-LCD lcd(rs, en, d4, d5, d6, d7);
+Console serial(true);
+IR ir(2);
 
-const int potent = A0;
-Console serial(false);
-
-void setup() {
-  // set up the LCD's number of columns and rows:
-  lcd.begin(16);
-  serial.begin();
-
-  pinMode(13, OUTPUT);
-
-  Serial.println("ready");
+String receive() {
+  String input = serial.get();
+  input.trim();
+  return input;
 }
 
+void setup() {
+  serial.begin();
+  Serial.println(F("ready"));
+  delay(500);
+}
+
+bool learning = false;
+
+void handleCommand(String s) {
+  if (s == F("learn")) {
+    learning = true;
+    return;
+  }
+
+  if (s == F("send")) {
+    learning = false;
+    return;
+  }
+
+  if (s == F("mem")) {
+    Serial.println(freeMemory());
+    return;
+  }
+
+  if (s == F("")) {
+    ir.sendCode(IRCommand(F("{\"protocol\":2,\"value\":3216,\"bits\":12}")));
+  }
+}
 
 void loop() {
-  lcd.print();
-  delay(5);
-
   if (serial.ready()) {
-    String input = serial.get();
-    Serial.println("Got Data!");
-    lcd.top(input);
+    String input = receive();
+    handleCommand(input);
   }
+
+  if (learning) {
+    if (ir.received()) {
+      IRCommand cmd = ir.receiveCode();
+
+      if (cmd.protocol == UNKNOWN) {
+        return;
+      }
+
+      cmd.sendJSON();
+    }
+  }
+
+  delay(20);
 }
