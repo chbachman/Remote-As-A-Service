@@ -1,0 +1,8 @@
+{
+  "name": "remote-as-a-service",
+  "version": "0.0.1",
+  "description": "Remote over Webserver",
+  "main": "index.js",
+  "author": "chbachman <cbachman@bachmangroup.com>",
+  "license": "MIT"
+}
