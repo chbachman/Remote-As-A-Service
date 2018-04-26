@@ -4,5 +4,8 @@
   "description": "Remote over Webserver",
   "main": "index.js",
   "author": "chbachman <cbachman@bachmangroup.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "serialport": "^6.2.0"
+  }
 }

@@ -1,14 +1,25 @@
-const SerialPort = require('serialport')
-const Readline = SerialPort.parsers.Readline
+const express = require('express')
+const app = express()
 
-const port = new SerialPort('/dev/ttyACM0')
+const ir = require('./ir')
 
-var parser = new Readline()
-port.pipe(parser)
-parser.on('data', function (data) {
-  data = data.trim()
-  console.log(data)
-  if (data === 'ready') {
-    port.write('Hello, World!\n')
-  }
+ir.once('ready', () => {
+  let command
+
+  app.get('/learn', async (req, res) => {
+    console.log('Learning!')
+    command = await ir.learn()
+    console.log('Learned!')
+  })
+
+  app.get('/send', (req, res) => {
+    if (command) {
+      console.log('Sending: ' + JSON.stringify(command))
+      ir.send(command)
+    }
+  })
+
+  app.listen(3000, () => {
+    console.log('Example app listening on port 3000!')
+  })
 })

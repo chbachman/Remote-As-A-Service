@@ -2,6 +2,7 @@
 #include <IRLibAll.h>
 #include <IRLibRecv.h>
 #include <ArduinoJson.h>
+#include "common.hpp"
 
 struct IRCommand {
 public:
@@ -12,16 +13,18 @@ public:
   IRCommand(unsigned char protocol, unsigned int value, unsigned char bits): protocol(protocol), value(value), bits(bits) {}
   IRCommand(IRdecode decoder): protocol(decoder.protocolNum), value(decoder.value), bits(decoder.bits) {}
 
-  IRCommand(String s) {
-    StaticJsonBuffer<100> jsonBuffer;
+  IRCommand(const String &s) {
+    StaticJsonBuffer<64> jsonBuffer;
     JsonObject& root = jsonBuffer.parseObject(s);
+
+    mem();
     protocol = root[F("protocol")];
     value = root[F("value")];
     bits = root[F("bits")];
   }
 
   void sendJSON() {
-    StaticJsonBuffer<100> jsonBuffer;
+    StaticJsonBuffer<64> jsonBuffer;
     JsonObject& root = jsonBuffer.createObject();
     root[F("protocol")] = protocol;
     root[F("value")] = value;
@@ -57,7 +60,7 @@ public:
     return output;
   }
 
-  void sendCode(IRCommand ir) {
+  void sendCode(const IRCommand &ir) {
     // Probably will need to change this.
     if (ir.protocol == UNKNOWN) {
       return;

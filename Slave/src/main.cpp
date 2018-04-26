@@ -3,7 +3,7 @@
 #include <ir.hpp>
 #include <MemoryFree.h>
 
-Console serial(true);
+Console serial(false);
 IR ir(2);
 
 String receive() {
@@ -20,30 +20,31 @@ void setup() {
 
 bool learning = false;
 
-void handleCommand(String s) {
-  if (s == F("learn")) {
+void handleCommand(const String &s) {
+  if (s == "learn") {
     learning = true;
     return;
   }
 
-  if (s == F("send")) {
+  if (s == "send") {
     learning = false;
     return;
   }
 
-  if (s == F("mem")) {
-    Serial.println(freeMemory());
+  if (s == "mem") {
+    mem();
     return;
   }
 
-  if (s == F("")) {
-    ir.sendCode(IRCommand(F("{\"protocol\":2,\"value\":3216,\"bits\":12}")));
+  if (!learning) {
+    ir.sendCode(IRCommand(s));
   }
 }
 
 void loop() {
   if (serial.ready()) {
     String input = receive();
+    input.trim();
     handleCommand(input);
   }
 

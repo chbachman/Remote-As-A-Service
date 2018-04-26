@@ -1,7 +1,14 @@
-#include "Arduino.h"
+#include <Arduino.h>
+#include <MemoryFree.h>
 
 #ifndef COMMON_H
 #define COMMON_H
+
+void mem() {
+	Serial.print(F("mem: "));
+	Serial.println(freeMemory());
+}
+
 class Timer {
 public:
 	unsigned long time;
