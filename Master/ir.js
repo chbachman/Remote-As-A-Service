@@ -16,14 +16,18 @@ class IR extends EventEmitter {
       parser.once('data', (data) => {
         let x = new IRCommand(data)
 
+        console.log(x)
+
         resolve(x)
+        // Switch back to sending mode.
         port.write('send\n')
       })
     })
   }
 
   send (cmd) {
-    const serialized = JSON.stringify(cmd) + '\n'
+    const serialized = JSON.stringify(cmd, ['protocol', 'value', 'bits']) + '\n'
+    console.log('Sending: ' + serialized)
     port.write(serialized)
   }
 }
@@ -52,6 +56,7 @@ module.exports = new IR()
 parser.on('data', function (data) {
   console.log(data)
   if (data === 'ready') {
+    port.write('send\n')
     module.exports.emit('ready')
     return
   }
